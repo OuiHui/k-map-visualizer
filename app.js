@@ -1,4 +1,3 @@
-
 class KMapVisualizer {
     constructor() {
         this.variables = 3;
@@ -220,24 +219,36 @@ class KMapVisualizer {
 
         // Convert binary strings to numbers for easier processing
         const onesAsNumbers = ones.map(term => parseInt(term, 2));
-        const covered = new Set();
         
         // Find all possible groups and sort by size (largest first)
         const allPossibleGroups = this.findAllPossibleGroups(onesAsNumbers);
         allPossibleGroups.sort((a, b) => b.length - a.length);
-        
-        // Greedy selection: pick largest groups that don't overlap with already covered terms
-        for (let group of allPossibleGroups) {
-            if (group.every(num => !covered.has(num))) {
-                // Convert back to binary strings for display
-                const groupTerms = group.map(num => num.toString(2).padStart(this.variables, '0'));
-                this.groups.push({
-                    terms: groupTerms,
-                    size: group.length,
-                    expression: this.groupToExpression(group)
-                });
-                group.forEach(num => covered.add(num));
-            }
+
+        // Filter out groups that are subsets of larger groups
+        let maximalGroups = allPossibleGroups.filter((group, i, arr) => {
+            return !arr.some((other, j) =>
+                j !== i &&
+                other.length > group.length &&
+                group.every(x => other.includes(x))
+            );
+        });
+
+        // Remove duplicate groups (same minterms, possibly in different order)
+        maximalGroups = maximalGroups.filter((group, i, arr) => {
+            return arr.findIndex(other =>
+                other.length === group.length &&
+                other.every(x => group.includes(x))
+            ) === i;
+        });
+
+        // Add only maximal, unique groups
+        for (let group of maximalGroups) {
+            const groupTerms = group.map(num => num.toString(2).padStart(this.variables, '0'));
+            this.groups.push({
+                terms: groupTerms,
+                size: group.length,
+                expression: this.groupToExpression(group)
+            });
         }
         
         this.updateGroupsDisplay();
