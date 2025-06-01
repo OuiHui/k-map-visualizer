@@ -10,7 +10,7 @@ class KMapVisualizer {
         this.setupEventListeners();
         this.generateKMap();
         this.updateTruthTable();
-        this.findGroups(); // Automatically find groups on initialization
+        this.findGroups();
     }
 
     setupEventListeners() {
@@ -31,22 +31,30 @@ class KMapVisualizer {
         
         this.generateKMap();
         this.updateTruthTable();
-        this.findGroups(); // Automatically find groups after changing variables
+        this.findGroups(); // Should automatically find groups after changing variables
     }
 
     generateKMap() {
         const container = document.getElementById('kmap');
         container.innerHTML = '';
-        
-        if (this.variables === 2) {
-            container.className = 'kmap kmap-2var';
-            this.generate2VarKMap(container);
-        } else if (this.variables === 3) {
-            container.className = 'kmap kmap-3var';
-            this.generate3VarKMap(container);
-        } else if (this.variables === 4) {
-            container.className = 'kmap kmap-4var';
-            this.generate4VarKMap(container);
+
+        switch (this.variables) {
+            case 2:
+                container.className = 'kmap kmap-2var';
+                this.generate2VarKMap(container);
+                break;
+            case 3:
+                container.className = 'kmap kmap-3var';
+                this.generate3VarKMap(container);
+                break;
+            case 4:
+                container.className = 'kmap kmap-4var';
+                this.generate4VarKMap(container);
+                break;
+            default:
+                // Optionally handle unexpected variable counts
+                container.className = 'kmap';
+                container.textContent = 'Unsupported variable count';
         }
     }
 
@@ -170,7 +178,7 @@ class KMapVisualizer {
         
         this.generateKMap();
         this.updateTruthTable();
-        this.findGroups(); // Automatically find groups after random fill
+        this.findGroups();
     }
 
     updateTruthTable() {
