@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styling.css">
+    <script src="app.js"></script>
+    <title>K-Map Logic Visualizer</title>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>K-Map Logic Visualizer</h1>
+            <p>Interactive tool to understand Boolean simplification with Karnaugh Maps</p>
+        </div>
+
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="section">
+                    <h3>Variables & Controls</h3>
+                    <div class="variable-controls">
+                        <button class="btn btn-secondary" id="btn-2var">2 Variables</button>
+                        <button class="btn btn-secondary active" id="btn-3var">3 Variables</button>
+                        <button class="btn btn-secondary" id="btn-4var">4 Variables</button>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="btn-clear">Clear All</button>
+                        <button class="btn btn-primary" id="btn-random">Random Fill</button>
+                    </div>
+                    <div class="info-box">
+                        <h4>Instructions:</h4>
+                        <p>Click on K-map cells to toggle between 0 and 1. Groups are automatically identified and the Boolean expression is simplified in real-time. Groups must be rectangular and contain powers of 2 cells.</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>K-Map</h3>
+                    <div class="kmap-container">
+                        <div class="kmap" id="kmap"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="section">
+                    <h3>Truth Table</h3>
+                    <table class="truth-table" id="truth-table"></table>
+                </div>
+
+                <div class="section">
+                    <h3>Identified Groups</h3>
+                    <div class="groups-list" id="groups-list">
+                        <p>Click "Find Groups" to identify optimal groupings</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Simplified Expression</h3>
+                    <div class="simplified-expression" id="simplified-expression">
+                        F = ...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
