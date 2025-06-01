@@ -53,16 +53,16 @@ class KMapVisualizer {
     generate2VarKMap(container) {
         // Headers
         container.appendChild(this.createHeader(''));
-        container.appendChild(this.createHeader('B'));
         container.appendChild(this.createHeader('B\''));
+        container.appendChild(this.createHeader('B'));
         
         // Row A
-        container.appendChild(this.createLabel('A'));
+        container.appendChild(this.createLabel('A\''));
         container.appendChild(this.createCell('00'));
         container.appendChild(this.createCell('01'));
         
         // Row A'
-        container.appendChild(this.createLabel('A\''));
+        container.appendChild(this.createLabel('A'));
         container.appendChild(this.createCell('10'));
         container.appendChild(this.createCell('11'));
     }
@@ -70,20 +70,20 @@ class KMapVisualizer {
     generate3VarKMap(container) {
         // Headers
         container.appendChild(this.createHeader(''));
-        container.appendChild(this.createHeader('BC'));
-        container.appendChild(this.createHeader('B\'C'));
         container.appendChild(this.createHeader('B\'C\''));
+        container.appendChild(this.createHeader('B\'C'));
+        container.appendChild(this.createHeader('BC'));
         container.appendChild(this.createHeader('BC\''));
         
         // Row A
-        container.appendChild(this.createLabel('A'));
+        container.appendChild(this.createLabel('A\''));
         container.appendChild(this.createCell('000'));
         container.appendChild(this.createCell('001'));
         container.appendChild(this.createCell('011'));
         container.appendChild(this.createCell('010'));
         
         // Row A'
-        container.appendChild(this.createLabel('A\''));
+        container.appendChild(this.createLabel('A'));
         container.appendChild(this.createCell('100'));
         container.appendChild(this.createCell('101'));
         container.appendChild(this.createCell('111'));
@@ -93,13 +93,13 @@ class KMapVisualizer {
     generate4VarKMap(container) {
         // Headers
         container.appendChild(this.createHeader(''));
-        container.appendChild(this.createHeader('CD'));
-        container.appendChild(this.createHeader('C\'D'));
         container.appendChild(this.createHeader('C\'D\''));
+        container.appendChild(this.createHeader('C\'D'));
+        container.appendChild(this.createHeader('CD'));
         container.appendChild(this.createHeader('CD\''));
         
         // Rows
-        const rowLabels = ['AB', 'A\'B', 'A\'B\'', 'AB\''];
+        const rowLabels = ['A\'B\'', 'A\'B', 'AB', 'AB\''];
         const cellMappings = [
             ['0000', '0001', '0011', '0010'],
             ['0100', '0101', '0111', '0110'],
@@ -429,7 +429,7 @@ class KMapVisualizer {
         
         if (this.groups.length === 0) {
             const p = document.createElement('p');
-            p.textContent = 'No groups found or click "Find Groups" to identify optimal groupings';
+            p.textContent = 'No Groups Found :o';
             container.appendChild(p);
             return;
         }
