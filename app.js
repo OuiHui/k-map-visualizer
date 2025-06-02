@@ -354,54 +354,94 @@ class KMapVisualizer {
     }
 
     generate4VarPairs() {
-        // Generate all valid adjacent pairs for 4-variable K-map
         const pairs = [];
-        const kmap4Layout = [
-            [0, 1, 3, 2],
-            [4, 5, 7, 6],
-            [12, 13, 15, 14],
-            [8, 9, 11, 10]
-        ];
-        
-        // Horizontal pairs
-        for (let row of kmap4Layout) {
-            for (let i = 0; i < row.length - 1; i++) {
-                pairs.push([row[i], row[i + 1]]);
+        const gray = [0, 1, 3, 2]; // Gray code order for 2 bits
+
+        // Horizontal pairs (rows)
+        for (let row = 0; row < 4; row++) {
+            for (let col = 0; col < 4; col++) {
+                const a = (gray[row] << 2) | gray[col];
+                const b = (gray[row] << 2) | gray[(col + 1) % 4];
+                pairs.push([a, b]);
             }
-            // Wrap around
-            pairs.push([row[row.length - 1], row[0]]);
         }
-        
-        // Vertical pairs
+        // Vertical pairs (columns)
         for (let col = 0; col < 4; col++) {
-            for (let row = 0; row < 3; row++) {
-                pairs.push([kmap4Layout[row][col], kmap4Layout[row + 1][col]]);
+            for (let row = 0; row < 4; row++) {
+                const a = (gray[row] << 2) | gray[col];
+                const b = (gray[(row + 1) % 4] << 2) | gray[col];
+                pairs.push([a, b]);
             }
-            // Wrap around
-            pairs.push([kmap4Layout[3][col], kmap4Layout[0][col]]);
         }
-        
         return pairs;
     }
 
     generate4VarQuads() {
-        // Generate all valid 2x2 rectangles for 4-variable K-map
-        return [
-            [0, 1, 4, 5], [1, 3, 5, 7], [3, 2, 7, 6], [2, 0, 6, 4],
-            [4, 5, 12, 13], [5, 7, 13, 15], [7, 6, 15, 14], [6, 4, 14, 12],
-            [12, 13, 8, 9], [13, 15, 9, 11], [15, 14, 11, 10], [14, 12, 10, 8],
-            [8, 9, 0, 1], [9, 11, 1, 3], [11, 10, 3, 2], [10, 8, 2, 0]
-        ];
+        const quads = [];
+        const gray = [0, 1, 3, 2];
+
+        // 2x2 blocks
+        for (let row = 0; row < 4; row++) {
+            for (let col = 0; col < 4; col++) {
+                quads.push([
+                    (gray[row] << 2) | gray[col],
+                    (gray[row] << 2) | gray[(col + 1) % 4],
+                    (gray[(row + 1) % 4] << 2) | gray[col],
+                    (gray[(row + 1) % 4] << 2) | gray[(col + 1) % 4]
+                ]);
+            }
+        }
+
+        // 1x4 horizontal (entire row)
+        for (let row = 0; row < 4; row++) {
+            quads.push([
+                (gray[row] << 2) | gray[0],
+                (gray[row] << 2) | gray[1],
+                (gray[row] << 2) | gray[2],
+                (gray[row] << 2) | gray[3]
+            ]);
+        }
+
+        // 4x1 vertical (entire column)
+        for (let col = 0; col < 4; col++) {
+            quads.push([
+                (gray[0] << 2) | gray[col],
+                (gray[1] << 2) | gray[col],
+                (gray[2] << 2) | gray[col],
+                (gray[3] << 2) | gray[col]
+            ]);
+        }
+
+        return quads;
     }
 
     generate4VarOctets() {
-        // Generate all valid 8-cell groups for 4-variable K-map
-        return [
-            [0, 1, 2, 3, 4, 5, 6, 7], // top two rows
-            [8, 9, 10, 11, 12, 13, 14, 15], // bottom two rows
-            [0, 1, 4, 5, 8, 9, 12, 13], // left two columns
-            [2, 3, 6, 7, 10, 11, 14, 15] // right two columns
-        ];
+        const octets = [];
+        const gray = [0, 1, 3, 2];
+
+        // 2x4 blocks (two rows)
+        for (let row = 0; row < 4; row++) {
+            const octet = [];
+            for (let dr = 0; dr < 2; dr++) {
+                for (let col = 0; col < 4; col++) {
+                    octet.push((gray[(row + dr) % 4] << 2) | gray[col]);
+                }
+            }
+            octets.push(octet);
+        }
+
+        // 4x2 blocks (two columns)
+        for (let col = 0; col < 4; col++) {
+            const octet = [];
+            for (let row = 0; row < 4; row++) {
+                for (let dc = 0; dc < 2; dc++) {
+                    octet.push((gray[row] << 2) | gray[(col + dc) % 4]);
+                }
+            }
+            octets.push(octet);
+        }
+
+        return octets;
     }
 
     groupToExpression(group) {
