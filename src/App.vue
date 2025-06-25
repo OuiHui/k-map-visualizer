@@ -3,38 +3,28 @@
     <header>
       <h1>Boolean Logic Simplifier</h1>
       <p class="subtitle">Advanced Karnaugh Map Visualization & Analysis Tool</p>
-      
-      <button 
-        class="theme-toggle" 
-        @click="toggleTheme"
-        style="position: absolute; top: 1rem; right: 1rem; z-index: 9999;"
-        title="Toggle Dark/Light Theme"
-      >
-        <span class="theme-icon">{{ themeIcon }}</span>
-      </button>
-      
     </header>
 
     <div class="controls">
       <div class="control-group">
         <label>Number of Variables</label>
         <div class="variable-controls">
-          <button 
+          <Button 
             v-for="num in [2, 3, 4]" 
             :key="num"
-            class="btn" 
             :class="{ active: variables === num }"
             @click="setVariables(num)"
+            :severity="variables === num ? 'primary' : 'secondary'"
           >
             {{ num }} Variables
-          </button>
+          </Button>
         </div>
       </div>
       <div class="control-group">
         <label>Actions</label>
         <div class="action-controls">
-          <button class="btn" @click="clearKMap">Clear K-Map</button>
-          <button class="btn" @click="randomFill">Random Fill</button>
+          <Button @click="clearKMap">Clear K-Map</Button>
+          <Button @click="randomFill">Random Fill</Button>
         </div>
       </div>
     </div>
@@ -49,19 +39,18 @@
         />
         <p class="kmap-instructions">
           Click cells to toggle between 0 and 1<br>
-          <small>Prime implicants will automatically appear below once you add values</small>
+          <small>K-map groupings will automatically appear below once you add values</small>
         </p>
 
-        <!-- Prime Implicants Section moved here -->
+        <!-- K-map Groupings Section moved here -->
         <div class="groups-container" style="margin-top: 2rem;">
-          <h4 class="prime-implicants-title">Prime Implicants</h4>
+          <h4 class="groupings-title">K-map Groupings</h4>
           <div>
             <div 
               v-if="groups.length === 0"
-              class="group-item no-implicants"
+              class="group-item no-groupings"
             >
-              <strong>No Prime Implicants Found</strong><br>
-              <em>Try adding some 1's to the K-map to see prime implicants</em>
+              <strong>No K-map Groupings Found</strong><br>
             </div>
             <div 
               v-else
@@ -69,7 +58,7 @@
               :key="index"
               class="group-item fade-in"
             >
-              <strong>Prime Implicant {{ index + 1 }}:</strong> {{ group.terms.join(', ') }}<br>
+              <strong>Grouping {{ index + 1 }}:</strong> {{ group.terms.join(', ') }}<br>
               <em>Simplified Form: {{ group.expression }}</em>
             </div>
           </div>
@@ -100,7 +89,6 @@ import { ref, reactive, computed, onMounted, watch } from 'vue'
 import KMapGrid from './components/KMapGrid.vue'
 import TruthTable from './components/TruthTable.vue'
 import { useKMapLogic } from './composables/useKMapLogic'
-import { useTheme } from './composables/useTheme'
 
 export default {
   name: 'App',
@@ -112,7 +100,6 @@ export default {
     const variables = ref(3)
     const kmap = reactive({})
     
-    const { themeIcon, toggleTheme } = useTheme()
     const { 
       findGroups, 
       generateSimplifiedExpression 
@@ -171,12 +158,10 @@ export default {
       kmap,
       groups,
       simplifiedExpression,
-      themeIcon,
       setVariables,
       toggleCell,
       clearKMap,
-      randomFill,
-      toggleTheme
+      randomFill
     }
   }
 }

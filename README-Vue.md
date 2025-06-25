@@ -47,7 +47,6 @@ src/
 │   ├── KMapCell.vue    # Individual K-map cells
 │   └── TruthTable.vue  # Truth table display
 ├── composables/         # Reusable logic
-│   ├── useTheme.js     # Theme management
 │   └── useKMapLogic.js # K-map algorithms
 ├── App.vue             # Main application
 ├── main.js             # Application entry point
@@ -58,13 +57,13 @@ src/
 
 ### K-Map Visualization
 - Click any cell to toggle between 0 and 1
-- Automatic detection of prime implicants
+- Automatic detection of K-map groupings
 - Visual feedback with Georgia Tech colors
 
 
 ### Boolean Logic
 - Supports 2, 3, and 4-variable functions
-- Finds all maximal groupings (prime implicants)
+- Finds all maximal groupings (K-map groupings)
 - Generates simplified Boolean expressions
 - Real-time truth table updates
 
@@ -82,7 +81,6 @@ Uses Vue 3's Composition API for:
 - **TruthTable.vue**: Truth table generation and display
 
 ### Composables
-- **useTheme**: Theme switching and persistence
 - **useKMapLogic**: K-map algorithms and expression generation
 
 

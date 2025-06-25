@@ -8,10 +8,18 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "keywords": ["vue", "karnaugh", "boolean", "logic", "simplifier"],
+  "keywords": [
+    "vue",
+    "karnaugh",
+    "boolean",
+    "logic",
+    "simplifier"
+  ],
   "author": "Georgia Tech Student",
   "license": "MIT",
   "dependencies": {
+    "primeicons": "^7.0.0",
+    "primevue": "^4.3.5",
     "vue": "^3.4.0"
   },
   "devDependencies": {
