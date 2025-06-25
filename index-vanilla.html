@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styling.css">
+    <script src="app.js"></script>
+    <title>Boolean Logic Simplifier</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Boolean Logic Simplifier</h1>
+            <p class="subtitle">Advanced Karnaugh Map Visualization & Analysis Tool</p>
+            <button class="theme-toggle" id="theme-toggle">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Number of Variables</label>
+                <div class="variable-controls">
+                    <button class="btn" id="btn-2var">2 Variables</button>
+                    <button class="btn active" id="btn-3var">3 Variables</button>
+                    <button class="btn" id="btn-4var">4 Variables</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <label>Actions</label>
+                <div class="action-controls">
+                    <button class="btn" id="btn-clear">Clear K-Map</button>
+                    <button class="btn" id="btn-random">Random Fill</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="kmap-section">
+                <h2 class="section-title">Karnaugh Map</h2>
+                <div id="kmap"></div>
+                <p style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                    Click cells to toggle between 0 and 1
+                </p>
+            </div>
+
+            <div class="analysis-section">
+                <h2 class="section-title">Analysis</h2>
+                
+                <div class="truth-table-container">
+                    <table id="truth-table"></table>
+                </div>
+
+                <div class="groups-container">
+                    <h4 style="margin-bottom: 1rem; color: var(--gt-navy);">Prime Implicants</h4>
+                    <div id="groups-list">
+                        <div class="group-item">
+                            <strong>No Prime Implicants Found</strong><br>
+                            <em>Try adding some 1's to the K-map</em>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="margin-bottom: 1rem; color: var(--gt-navy);">Simplified Expression</h4>
+                    <div class="expression-display" id="simplified-expression">
+                        F = 0
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

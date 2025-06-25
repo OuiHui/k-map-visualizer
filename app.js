@@ -8,9 +8,20 @@ class KMapVisualizer {
 
     init() {
         this.setupEventListeners();
+        this.createDynamicHeader();
         this.generateKMap();
         this.updateTruthTable();
         this.findGroups();
+    }
+
+    createDynamicHeader() {
+        const header = document.querySelector('header');
+        if (header) {
+            header.innerHTML = `
+                <h1>Boolean Logic Simplifier</h1>
+                <p class="subtitle">Advanced Karnaugh Map Visualization & Analysis Tool</p>
+            `;
+        }
     }
 
     setupEventListeners() {
@@ -19,6 +30,10 @@ class KMapVisualizer {
         document.getElementById('btn-4var').addEventListener('click', () => this.setVariables(4));
         document.getElementById('btn-clear').addEventListener('click', () => this.clearKMap());
         document.getElementById('btn-random').addEventListener('click', () => this.randomFill());
+        document.getElementById('theme-toggle').addEventListener('click', () => this.toggleTheme());
+        
+        // Load saved theme preference
+        this.loadTheme();
     }
 
     setVariables(num) {
@@ -476,9 +491,13 @@ class KMapVisualizer {
         container.innerHTML = '';
         
         if (this.groups.length === 0) {
-            const p = document.createElement('p');
-            p.textContent = 'No Groups Found :o';
-            container.appendChild(p);
+            const div = document.createElement('div');
+            div.className = 'group-item';
+            div.innerHTML = `
+                <strong>No Prime Implicants Found</strong><br>
+                <em>Try adding some 1's to the K-map</em>
+            `;
+            container.appendChild(div);
             return;
         }
         
@@ -486,8 +505,8 @@ class KMapVisualizer {
             const div = document.createElement('div');
             div.className = 'group-item fade-in';
             div.innerHTML = `
-                <strong>Group ${index + 1}:</strong> ${group.terms.join(', ')}<br>
-                <em>Expression: ${group.expression}</em>
+                <strong>Prime Implicant ${index + 1}:</strong> ${group.terms.join(', ')}<br>
+                <em>Simplified Form: ${group.expression}</em>
             `;
             container.appendChild(div);
         });
@@ -519,6 +538,27 @@ class KMapVisualizer {
         return term.split('').map((bit, index) => {
             return bit === '1' ? variables[index] : variables[index] + "'";
         }).join('');
+    }
+
+    toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Update theme icon
+        const themeIcon = document.querySelector('.theme-icon');
+        themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    loadTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        
+        // Update theme icon
+        const themeIcon = document.querySelector('.theme-icon');
+        themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
     }
 }
 
