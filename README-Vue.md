@@ -1,14 +1,13 @@
-# Boolean Logic Simplifier - Vue.js Version
+# Boolean Logic Simplifier
 
-A modern, interactive Karnaugh Map visualization tool built with Vue.js 3 and featuring Georgia Tech's navy and gold theme.
-
+A modern, interactive Karnaugh Map visualization tool built with Vue.js in Georgia Tech's navy and gold theme.
 
 ## Tech Stack
 
-- **Vue.js 3** - Composition API with reactive state management
-- **Vite** - Fast development and build tooling
-- **Modern CSS** - CSS Grid, Flexbox, and CSS Variables
-- **Responsive Design** - Mobile-first approach
+- **Vue.js 3** 
+- **Vite** 
+- **Modern CSS** 
+- **Responsive Design** 
 
 ## Getting Started
 
@@ -26,16 +25,6 @@ A modern, interactive Karnaugh Map visualization tool built with Vue.js 3 and fe
 2. **Start development server:**
    ```bash
    npm run dev
-   ```
-
-3. **Build for production:**
-   ```bash
-   npm run build
-   ```
-
-4. **Preview production build:**
-   ```bash
-   npm run preview
    ```
 
 ## Project Structure
@@ -58,7 +47,6 @@ src/
 ### K-Map Visualization
 - Click any cell to toggle between 0 and 1
 - Automatic detection of K-map groupings
-- Visual feedback with Georgia Tech colors
 
 
 ### Boolean Logic
@@ -67,12 +55,6 @@ src/
 - Generates simplified Boolean expressions
 - Real-time truth table updates
 
-
-### Composition API
-Uses Vue 3's Composition API for:
-- Reactive state management
-- Reusable business logic
-- Clean component organization
 
 ### Component Structure
 - **App.vue**: Main container and state management

@@ -6,13 +6,12 @@ import './style.css'
 import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
 
-// PrimeIcons (only import the CSS that exists)
 import 'primeicons/primeicons.css'
 
 const app = createApp(App)
 
 app.use(PrimeVue, {
-    unstyled: true // This removes all default PrimeVue styling so our custom styles work better
+    unstyled: true 
 })
 app.component('Button', Button)
 
